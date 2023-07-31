@@ -35,7 +35,8 @@ class Board:
         self.height = height
         self.board = [[None for i in range(width)] for j in range(height)]
 
-    # Helpers below
+
+    # Private helper functions below
     def _is_valid(self, position: tuple[int, int]) -> bool:
         """Return whether <position> is a valid position on the board."""
         return 0 <= position[0] < self.width and 0 <= position[1] < self.height
