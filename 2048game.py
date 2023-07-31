@@ -2,7 +2,6 @@ import pygame
 import random
 import math
 
-
 class Tile:
     """A tile."""
     value: int
@@ -18,7 +17,7 @@ class Tile:
         return False
 
 
-# Helper
+# Helper function for class Board
 def _move_position(position: tuple[int, int], direction: tuple[int, int]) -> tuple[int, int]:
     """Return the position after moving <direction> from <position>."""
     return position[0] + direction[0], position[1] + direction[1]
@@ -53,7 +52,6 @@ class Board:
         elif direction[1] == 0:
             for y in range(self.height):
                 starts.append((side[0], y))
-
         return starts
 
     def _get(self, position: tuple[int, int]) -> Tile | None:
@@ -65,26 +63,21 @@ class Board:
         self.board[position[0]][position[1]] = tile
 
     def _compact(self, direction: tuple[int, int]) -> bool:
-
         something_changed = False
-
         for i in range(max(self.width, self.height)):
             for x in range(self.width):
                 for y in range(self.height):
 
                     if self.board[x][y] is None:
                         continue
-
                     curr_pos = (x, y)
                     next_pos = _move_position(curr_pos, direction)
 
                     while self._is_valid(next_pos) and self._get(next_pos) is None:
                         self._set(next_pos, self._get(curr_pos))
                         self._set(curr_pos, None)
-
                         curr_pos = next_pos
                         next_pos = _move_position(curr_pos, direction)
-
                         something_changed = True
 
         return something_changed
@@ -96,7 +89,6 @@ class Board:
             for y in range(self.height):
                 if self.board[x][y] is None:
                     options.append((x, y))
-
         if len(options) == 0:
             return False
 
@@ -182,7 +174,6 @@ class Board:
                     next_tile = board._get(next_pos)
                     if next_tile is None or tile.value == next_tile.value:
                         return False
-
         return True
 
     def check_win(self) -> bool:
@@ -193,19 +184,19 @@ class Board:
         return False
 
 
+# UI components
+
 def display_colour_choice(screen: pygame.Surface):
     font = pygame.font.SysFont('Arial', 30)
     choice_text = font.render("Press [B] for blue, [R] for red", True, (255, 255, 255))
     screen.blit(choice_text, (400 // 2 - choice_text.get_width() // 2, 200 - choice_text.get_height() / 2))
     pygame.display.flip()
 
-
 def display_game_over(screen):
     font = pygame.font.SysFont('Arial', 50)
     text = font.render("Game Over", True, (0, 0, 0))
     screen.blit(text, (200 - text.get_width() / 2, 200 - text.get_height() / 2))
     pygame.display.flip()
-
 
 def display_winning_message(screen):
     yellow_overlay = pygame.Surface((400, 400), pygame.SRCALPHA)
