@@ -148,15 +148,16 @@ class Board:
 
                 if colour_choice == 'red':
                     colour = (255, 255 - shade, 255 - shade)
-                elif colour_choice == 'blue':
-                    colour = (255 - shade, 255 - shade, 255)
-                elif colour_choice == 'green':
-                    colour = (255 - shade, 255, 255 - shade)
+                elif colour_choice == 'orange':
+                    colour = (255, 255 - shade / 2, 255 - shade)
                 elif colour_choice == 'yellow':
                     colour = (255, 255, 255 - shade)
+                elif colour_choice == 'green':
+                    colour = (255 - shade, 255, 255 - shade)
+                elif colour_choice == 'blue':
+                    colour = (255 - shade, 255 - shade, 255)
                 elif colour_choice == 'purple':
                     colour = (255, 255 - shade, 255)
-
 
                 pygame.draw.rect(screen, colour, pygame.Rect(x * 100, y * 100, 100, 100))
                 font = pygame.font.SysFont('Arial', 30)
@@ -208,6 +209,9 @@ def display_colour_choice(screen: pygame.Surface):
 
     colour_choice_5 = font.render("and [P] for purple", True, (255, 255, 255))
     screen.blit(colour_choice_5, (400 // 2 - colour_choice_5.get_width() // 2, 300 - colour_choice_5.get_height() / 2))
+
+    colour_choice_6 = font.render("Press [O] for orange,", True, (255, 255, 255))
+    screen.blit(colour_choice_6, (400 // 2 - colour_choice_6.get_width() // 2, 350 - colour_choice_6.get_height() / 2))
 
     pygame.display.flip()
 
@@ -262,6 +266,8 @@ if __name__ == '__main__':
                 colour_choice = 'yellow'
             elif event.key == pygame.K_p:
                 colour_choice = 'purple'
+            elif event.key == pygame.K_o:
+                colour_choice = 'orange'
 
     running = True
     game_won = False
