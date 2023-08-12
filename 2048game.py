@@ -195,23 +195,26 @@ class Board:
 def display_colour_choice(screen: pygame.Surface):
     font = pygame.font.SysFont('Arial', 30)
 
-    colour_choice_1 = font.render("Press [B] for blue,", True, (255, 255, 255))
-    screen.blit(colour_choice_1, (400 // 2 - colour_choice_1.get_width() // 2, 100 - colour_choice_1.get_height() / 2))
+    instructions = font.render("Choose a colour scheme:", True, (255, 255, 255))
+    screen.blit(instructions, (400 // 2 - instructions.get_width() // 2, 50 - instructions.get_height() / 2))
 
-    colour_choice_2 = font.render("[R] for red,", True, (255, 255, 255))
-    screen.blit(colour_choice_2, (400 // 2 - colour_choice_2.get_width() // 2, 150 - colour_choice_2.get_height() / 2))
+    red_choice = font.render("[R] Red,", True, (255, 0, 0))
+    screen.blit(red_choice, (400 // 2 - red_choice.get_width() // 2, 100 - red_choice.get_height() / 2))
 
-    colour_choice_3 = font.render("and [G] for green", True, (255, 255, 255))
-    screen.blit(colour_choice_3, (400 // 2 - colour_choice_3.get_width() // 2, 200 - colour_choice_3.get_height() / 2))
+    orange_choice = font.render("[O] Orange,", True, (255, 125, 0))
+    screen.blit(orange_choice, (400 // 2 - orange_choice.get_width() // 2, 150 - orange_choice.get_height() / 2))
 
-    colour_choice_4 = font.render("Press [Y] for yellow,", True, (255, 255, 255))
-    screen.blit(colour_choice_4, (400 // 2 - colour_choice_4.get_width() // 2, 250 - colour_choice_4.get_height() / 2))
+    yellow_choice = font.render("[Y] Yellow,", True, (255, 255, 0))
+    screen.blit(yellow_choice, (400 // 2 - yellow_choice.get_width() // 2, 200 - yellow_choice.get_height() / 2))
 
-    colour_choice_5 = font.render("and [P] for purple", True, (255, 255, 255))
-    screen.blit(colour_choice_5, (400 // 2 - colour_choice_5.get_width() // 2, 300 - colour_choice_5.get_height() / 2))
+    green_choice = font.render("[G] Green", True, (0, 255, 0))
+    screen.blit(green_choice, (400 // 2 - green_choice.get_width() // 2, 250 - green_choice.get_height() / 2))
 
-    colour_choice_6 = font.render("Press [O] for orange,", True, (255, 255, 255))
-    screen.blit(colour_choice_6, (400 // 2 - colour_choice_6.get_width() // 2, 350 - colour_choice_6.get_height() / 2))
+    blue_choice = font.render("[B] Blue,", True, (0, 0, 255))
+    screen.blit(blue_choice, (400 // 2 - blue_choice.get_width() // 2, 300 - blue_choice.get_height() / 2))
+
+    purple_choice = font.render("[P] Purple", True, (255, 0, 255))
+    screen.blit(purple_choice, (400 // 2 - purple_choice.get_width() // 2, 350 - purple_choice.get_height() / 2))
 
     pygame.display.flip()
 
@@ -228,7 +231,7 @@ def display_winning_message(screen):
 
     font = pygame.font.SysFont('Arial', 60)
     win_text = font.render("YOU WIN!", True, (0, 0, 0))
-    screen.blit(win_text, (400 // 2 - win_text.get_width() // 2, 100))  # Move "YOU WIN" text up
+    screen.blit(win_text, (400 // 2 - win_text.get_width() // 2, 100))
 
     font = pygame.font.SysFont('Arial', 30)
     continue_messages = ["Press [Q] to continue,", "[W] to restart", "[E] to exit"]
@@ -236,7 +239,7 @@ def display_winning_message(screen):
     for message in continue_messages:
         continue_text = font.render(message, True, (0, 0, 0))
         screen.blit(continue_text, (400 // 2 - continue_text.get_width() // 2, y_offset))
-        y_offset += continue_text.get_height() + 10  # Add 10 pixels of spacing between lines
+        y_offset += continue_text.get_height() + 10
 
     pygame.display.flip()
 
@@ -248,7 +251,6 @@ if __name__ == '__main__':
     board.spawn()
     board.spawn()
 
-    # Display the colour choice screen
     display_colour_choice(screen)
 
     # Wait for user input to choose colour
@@ -256,18 +258,19 @@ if __name__ == '__main__':
     while colour_choice is None:
         event = pygame.event.wait()
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_b:
-                colour_choice = 'blue'
-            elif event.key == pygame.K_r:
+
+            if event.key == pygame.K_r:
                 colour_choice = 'red'
-            elif event.key == pygame.K_g:
-                colour_choice = 'green'
-            elif event.key == pygame.K_y:
-                colour_choice = 'yellow'
-            elif event.key == pygame.K_p:
-                colour_choice = 'purple'
             elif event.key == pygame.K_o:
                 colour_choice = 'orange'
+            elif event.key == pygame.K_y:
+                colour_choice = 'yellow'
+            elif event.key == pygame.K_g:
+                colour_choice = 'green'
+            elif event.key == pygame.K_b:
+                colour_choice = 'blue'
+            elif event.key == pygame.K_p:
+                colour_choice = 'purple'
 
     running = True
     game_won = False
