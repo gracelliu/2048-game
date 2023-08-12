@@ -5,10 +5,8 @@ import math
 class Tile:
     """A tile."""
     value: int
-
     def __init__(self, value=2):
         self.value = value
-
     def merge(self, other) -> bool:
         """Merge this tile with <other>."""
         if self.value == other.value:
@@ -152,6 +150,8 @@ class Board:
                     colour = (255, 255 - shade, 255 - shade)
                 elif colour_choice == 'blue':
                     colour = (255 - shade, 255 - shade, 255)
+                elif colour_choice == 'green':
+                    colour = (255 - shade, 255, 255 - shade)
 
                 pygame.draw.rect(screen, colour, pygame.Rect(x * 100, y * 100, 100, 100))
                 font = pygame.font.SysFont('Arial', 30)
@@ -188,8 +188,16 @@ class Board:
 
 def display_colour_choice(screen: pygame.Surface):
     font = pygame.font.SysFont('Arial', 30)
-    choice_text = font.render("Press [B] for blue, [R] for red", True, (255, 255, 255))
-    screen.blit(choice_text, (400 // 2 - choice_text.get_width() // 2, 200 - choice_text.get_height() / 2))
+
+    colour_choice_1 = font.render("Press [B] for blue,", True, (255, 255, 255))
+    screen.blit(colour_choice_1, (400 // 2 - colour_choice_1.get_width() // 2, 150 - colour_choice_1.get_height() / 2))
+
+    colour_choice_2 = font.render("[R] for red,", True, (255, 255, 255))
+    screen.blit(colour_choice_2, (400 // 2 - colour_choice_2.get_width() // 2, 200 - colour_choice_2.get_height() / 2))
+
+    colour_choice_3 = font.render("and [G] for green", True, (255, 255, 255))
+    screen.blit(colour_choice_3, (400 // 2 - colour_choice_3.get_width() // 2, 250 - colour_choice_3.get_height() / 2))
+
     pygame.display.flip()
 
 def display_game_over(screen):
@@ -237,6 +245,8 @@ if __name__ == '__main__':
                 colour_choice = 'blue'
             elif event.key == pygame.K_r:
                 colour_choice = 'red'
+            elif event.key == pygame.K_g:
+                colour_choice = 'green'
 
     running = True
     game_won = False
